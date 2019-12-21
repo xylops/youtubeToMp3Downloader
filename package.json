@@ -1,0 +1,42 @@
+{
+  "name": "youtube-to-mp3",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "electron": "^1.7.9",
+    "electron-packager": "^14.0.6",
+    "foreman": "^2.0.0",
+    "react-scripts": "0.8.5"
+  },
+  "dependencies": {
+    "axios": "^0.18.1",
+    "bootstrap": "^4.3.1",
+    "electron-json-storage": "^4.1.7",
+    "ffmpeg-static": "^2.7.0",
+    "history": "^4.9.0",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "popper.js": "^1.15.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.1.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "ytdl-core": "^0.29.5"
+  },
+  "homepage": "./",
+  "main": "src/electron-starter.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "dev": "nf start -p 3000",
+    "pack:win64": "electron-packager . youtube-to-mp3 --out=dist/win --platform=win32 --arch=x64 app-version=1.0 --icon=src/img/icon.ico --overwrite",
+    "build": "npm run pack:osx && npm run pack:win32 && npm run pack:win64"
+  }
+}

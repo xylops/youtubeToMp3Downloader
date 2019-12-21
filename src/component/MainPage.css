@@ -1,0 +1,20 @@
+.ytItem{
+	/* cursor: pointer; */
+	padding: 5px;
+	border-bottom: 1px solid lightgrey;
+}
+
+.ytItem:hover,.selected{
+	background: #e8e8e8;
+}
+
+.circleBase {
+    border-radius: 50%;
+}
+
+.type1 {
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    border: 3px solid red;
+}
