@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as actions from '../redux/actions'
+import { isEmpty } from 'lodash'
 
 // eslint-disable-next-line 
 import style from './MainPage.css'
@@ -12,15 +13,26 @@ class MainPage extends Component {
 		super(props)
 		this.state = {
 			url: '',
-			// url: 'https://www.youtube.com/watch?v=oeEpRzU-mws&list=RDoeEpRzU-mws&start_radio=1',
 			downloadList: [],
 			sendingDownloadList: false
 		}
 	}
+	componentDidMount(){
+		let previousURL = localStorage.getItem('previousURL')
+		console.log(previousURL)
+		if(!isEmpty(previousURL)){
+			this.setState({url: previousURL}, ()=>{
+				this.onSubmitClick();
+			})
+			
+		}
+	}
 	onSubmitClick() {
-		!_.isEmpty(this.state.url) &&
+		if(!_.isEmpty(this.state.url)){
 			this.props.dispatch(actions.toggleMainPageLoading(true))
-		ipcRenderer.send('onYTLinkSubmit', this.state.url);
+			ipcRenderer.send('onYTLinkSubmit', this.state.url);
+			localStorage.setItem('previousURL', this.state.url)
+		}
 	}
 	downloadSelcted() {
 		let { dispatch } = this.props;
@@ -117,6 +129,7 @@ class MainPage extends Component {
 						aria-describedby="inputGroup-sizing-default"
 						ref={'ytLink'}
 						onChange={(e) => { this.setState({ url: e.target.value }) }}
+						value={this.state.url}
 					/>
 					<div className="input-group-append">
 						<button
@@ -155,8 +168,8 @@ class MainPage extends Component {
 				{
 					isLoading &&
 					<div style={{ textAlign: 'center', marginTop: 50 }}>
-						<div class="spinner-border text-primary" style={{width: '3rem', height: '3rem'}} role="status">
-							<span class="sr-only">Loading...</span>
+						<div className="spinner-border text-primary" style={{width: '3rem', height: '3rem'}} role="status">
+							<span className="sr-only">Loading...</span>
 						</div>
 					</div>
 				}
