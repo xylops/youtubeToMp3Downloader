@@ -1,9 +1,7 @@
 const _ = require('lodash')
 const axios = require('axios')
-const fs = require('fs')
-const os = require('os')
 
-const { baseURL, apiKey } = require('../utils/config')
+const { apiKey } = require('../utils/config')
 const Download = require('../utils/download')
 
 module.exports = (ipcMain) => {
@@ -42,7 +40,7 @@ module.exports = (ipcMain) => {
             let result = []
             let res = await axios({
                 method: 'get',
-                url: baseURL + path,
+                url: 'https://www.googleapis.com/youtube/v3' + path,
                 params: axiosParams
             })
             if (type === 'list') {
