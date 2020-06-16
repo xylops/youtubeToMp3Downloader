@@ -60,9 +60,10 @@ module.exports = (ipcMain) => {
 
 
     ipcMain.on('onDownloadListSubmit', (event, list) => {
-        list.forEach((item) => {
-            download.audio(item, event)
-        })
+        // list.forEach((item) => {
+        //     download.audio(item, event)
+        // })
+        download.downloadList(list)
         let cron = setInterval(() => {
             let downloadingList = download.getList()
             event.sender.send('updateDownloadList', downloadingList);

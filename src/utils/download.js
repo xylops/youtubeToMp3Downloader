@@ -7,12 +7,16 @@ const path = require('path')
 const { isEmpty } = require('lodash')
 const { spawn } = require('child_process');
 const ffmpeg = require('ffmpeg-static').path;
+const Bottleneck = require('bottleneck')
 
 class Download {
     constructor() {
         this.list = [],
         this.completeList = []
         this.ffmpegPath = ffmpeg.path
+        this.limiter = new Bottleneck({
+            maxConcurrent: 5,
+        });
     }
     getList() {
         return {
@@ -20,7 +24,15 @@ class Download {
             complete: this.completeList
         }
     }
-    async audio(item) {
+    downloadList(list){
+        let that = this
+        this.limiter.schedule(() => {
+            const allTasks = list.map(x => this.audio(x, that));
+            // GOOD, we wait until all tasks are done.
+            return Promise.all(allTasks);
+        });
+    }
+    audio(item, pthis) {
         try {
             item.title = item.title.replace('/', '') 
             item.title = item.title.replace('/', '') // these are different character
@@ -28,7 +40,7 @@ class Download {
             this.list.push(item)
             let fileNameWithDir = path.join(os.tmpdir(), item.title)
                     
-            let that = this
+            let that = pthis
             let downloadStream = ytdl(id, { quality: 'highestaudio' })
             let tempFileWithDir = path.join(os.tmpdir(), id)
             let createTempFileStream = 
