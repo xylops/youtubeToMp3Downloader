@@ -27,7 +27,7 @@ module.exports = (ipcMain) => {
         }
         if (!_.isEmpty(listID)) {
             path = '/playlistItems'
-            axiosParams.maxResults = 50
+            axiosParams.maxResults = 9999
             axiosParams.playlistId = listID
             type = 'list'
         } else if (!_.isEmpty(watchID)) {

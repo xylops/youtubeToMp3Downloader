@@ -19,6 +19,7 @@ module.exports = (dispatch) => {
         dispatch(actions.updateMaxConnection(arg))
     });
     ipcRenderer.on('updateDownloadList', (event, list) => {
-        dispatch(actions.updateDownloadList(list))
+        dispatch(actions.updateDownloadList(list.downloading))
+        dispatch(actions.updateCompleteList(list.complete))
     });
 }

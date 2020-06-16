@@ -15,7 +15,7 @@ class PublicLayout extends Component {
 		require('./listener')(this.props.dispatch)
 	}
 	render() {
-		let { list } = this.props;
+		let { downloadingList } = this.props;
 		let renderRouteItem = () => {
 			let routeArray = ['home', 'download', 'setting']
 			return routeArray.map((item, key)=>{
@@ -32,9 +32,9 @@ class PublicLayout extends Component {
 						}}
 					>
 						{
-							key === 1 && list.length > 0 &&
+							key === 1 && downloadingList.length > 0 &&
 							<span className="badge badge-pill badge-danger" style={{marginRight: 10}}>
-								{list.length}
+								{downloadingList.length}
 							</span>
 						}
 						{item.toUpperCase()}
@@ -63,6 +63,6 @@ class PublicLayout extends Component {
 
 export default connect((state)=>{
 	return {
-		list: state.downloadPage.list
+		downloadingList: state.downloadPage.downloadingList
 	}
 })(PublicLayout);

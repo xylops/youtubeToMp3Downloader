@@ -11,10 +11,14 @@ const ffmpeg = require('ffmpeg-static').path;
 class Download {
     constructor() {
         this.list = [],
+        this.completeList = []
         this.ffmpegPath = ffmpeg.path
     }
     getList() {
-        return this.list
+        return {
+            downloading: this.list,
+            complete: this.completeList
+        }
     }
     async audio(item) {
         try {
@@ -24,9 +28,7 @@ class Download {
             this.list.push(item)
             let fileNameWithDir = path.join(os.tmpdir(), item.title)
                     
-            let info = await ytdl.getInfo(id)
             let that = this
-            // let audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
             let downloadStream = ytdl(id, { quality: 'highestaudio' })
             let tempFileWithDir = path.join(os.tmpdir(), id)
             let createTempFileStream = 
@@ -50,6 +52,7 @@ class Download {
                 let ffmpegChild = spawn (ffmpeg, ['-i',  tempFileWithDir  + '.mp4',  fileNameWithDir + '.mp3'])
                 ffmpegChild.on('close', (code)=> {
                     let idx = _.findIndex(that.list, (o) => { return o.id === id })
+                    that.completeList.push(that.list[idx])
                     that.list.splice(idx, 1)
                     storage.get('downloadDirectory', (err, dir) => {
                         let targetDir = isEmpty(dir) ? os.homedir() : dir;
@@ -68,7 +71,6 @@ class Download {
                         })
                     })
                 })
-
             })	
         } catch (err){
             console.log(err)
