@@ -6,16 +6,16 @@ import _ from 'lodash'
 class SettingPage extends Component {
 	componentDidMount() {
 		ipcRenderer.send('getDownloadDirectory')
-		// ipcRenderer.send('getMaxConnection')
+		ipcRenderer.send('getMaxConnection')
 	}
 	handleSelecteDirectoryClick() {
 		ipcRenderer.send('openSelectFolderDialog', true)
 	}
-	// handleMaxConnectionChange(e){
-	// 	ipcRenderer.send('updateMaxConnection', e.target.value)
-	// }
+	handleMaxConnectionChange(e){
+		ipcRenderer.send('updateMaxConnection', e.target.value)
+	}
 	render() {
-		// let maxConnectArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		let maxConnectArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 		return (
 			<div>
 				<h4 className="text-center">SettingPage</h4>
@@ -33,7 +33,7 @@ class SettingPage extends Component {
 					</label>
 				</div>
 				<br />
-				{/* <div className="form-group">
+				<div className="form-group">
 					<label htmlFor="maxConnection">Max Connection</label>
 					<select
 						className="form-control"
@@ -47,7 +47,7 @@ class SettingPage extends Component {
 							})
 						}
 					</select>
-				</div> */}
+				</div>
 			</div>
 		);
 	}

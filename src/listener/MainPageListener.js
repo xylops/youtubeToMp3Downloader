@@ -2,10 +2,8 @@ const _ = require('lodash')
 const axios = require('axios')
 
 const { apiKey } = require('../utils/config')
-const Download = require('../utils/download')
 
-module.exports = (ipcMain) => {
-    let download = new Download()
+module.exports = (ipcMain, download) => {
     ipcMain.on('onYTLinkSubmit', async (event, arg) => {
         let params = arg.split('?')[1]
         let paramsArray = params.split('&')

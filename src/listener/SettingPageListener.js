@@ -3,7 +3,7 @@ const storage = require('electron-json-storage')
 const _ = require('lodash')
 const os = require('os')
 
-module.exports = (ipcMain) => {
+module.exports = (ipcMain, download) => {
     ipcMain.on('openSelectFolderDialog', async (event, list) => {
         dialog.showOpenDialog({
             properties: ['openDirectory']
@@ -33,6 +33,7 @@ module.exports = (ipcMain) => {
     })
     ipcMain.on('updateMaxConnection', async (event, num) => {
         storage.set('maxConnection', num, (err) => {
+            download.updateMaxConnection(num)
             event.sender.send('updateMaxConnection', num)
         })
     })

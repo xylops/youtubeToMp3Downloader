@@ -1,6 +1,9 @@
+const Download = require('../utils/download')
 
 module.exports = function(ipcMain){
-    require('./MainPageListener')(ipcMain)
-    require('./SettingPageListener')(ipcMain)
+    let download = new Download()
+    download.init()
+    require('./MainPageListener')(ipcMain, download)
+    require('./SettingPageListener')(ipcMain, download)
     require('./downloadPageListener')(ipcMain)
 }

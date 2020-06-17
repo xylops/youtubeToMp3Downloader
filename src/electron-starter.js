@@ -8,12 +8,12 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({width: 900, height: 900});
-    // const startUrl = 'http://localhost:3000'
-    const startUrl = url.format({
-        pathname: path.join(__dirname, '../build/index.html'),
-        protocol: 'file:',
-        slashes: true
-    });
+    const startUrl = 'http://localhost:3000'
+    // const startUrl = url.format({
+    //     pathname: path.join(__dirname, '../build/index.html'),
+    //     protocol: 'file:',
+    //     slashes: true
+    // });
     mainWindow.loadURL(startUrl);
     mainWindow.setMenuBarVisibility(false)
     // Open the DevTools.
