@@ -26,7 +26,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "ytdl-core": "^4.0.0"
+    "ytdl-core": "^4.1.3"
   },
   "homepage": "./",
   "main": "src/electron-starter.js",
@@ -37,7 +37,7 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "dev": "nf start -p 3000",
-    "pack:win64": "electron-packager . youtube-to-mp3 --out=dist/win --platform=win32 --arch=x64 app-version=1.0 --icon=src/img/icon.ico --overwrite",
+    "electron-build": "electron-packager . youtube-to-mp3 --out=dist/win --platform=win32 --arch=x64 app-version=1.0 --icon=src/img/icon.ico --overwrite",
     "build": "npm run pack:osx && npm run pack:win32 && npm run pack:win64"
   }
 }
